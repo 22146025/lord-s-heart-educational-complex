@@ -1,0 +1,27 @@
+# Windows-friendly requirements.txt
+# Use this if the main requirements.txt fails
+
+# Core Django
+Django==4.2.7
+djangorestframework==3.14.0
+
+# CORS and API
+django-cors-headers==4.3.1
+django-filter==23.3
+
+# Image processing
+Pillow==10.1.0
+
+# Environment and configuration
+python-decouple==3.8
+
+# Database - Windows-friendly alternative
+# For Windows, we'll use SQLite by default (included with Django)
+# If you need PostgreSQL later, install psycopg2-binary separately
+# psycopg2-binary==2.9.9
+
+# Production server
+gunicorn==21.2.0
+
+# Static files
+whitenoise==6.6.0

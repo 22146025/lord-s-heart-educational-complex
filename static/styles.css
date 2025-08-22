@@ -202,61 +202,6 @@ main {
   padding: 20px;
 }
 
-/* Contact form message styles */
-.message {
-  padding: 15px 20px;
-  border-radius: 8px;
-  color: white;
-  font-weight: 600;
-  margin: 15px 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  animation: slideIn 0.3s ease;
-}
-
-.message.success {
-  background-color: #28a745;
-  border-left: 4px solid #1e7e34;
-}
-
-.message.error {
-  background-color: #dc3545;
-  border-left: 4px solid #c82333;
-}
-
-.message.warning {
-  background-color: #ffc107;
-  color: #212529;
-  border-left: 4px solid #e0a800;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Contact form improvements */
-.contact-form input:invalid,
-.contact-form textarea:invalid {
-  border-color: #dc3545;
-}
-
-.contact-form input:valid,
-.contact-form textarea:valid {
-  border-color: #28a745;
-}
-
-.contact-form .send-btn:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
 /* News styles */
 #news .news-grid {
   display: grid;
