@@ -766,3 +766,6 @@ Bad Request: /api/contact/
 "GET /static/images/IMG-20250819-WA0032.jpg HTTP/1.1" 200 190129
 "GET /static/images/IMG-20250819-WA0035.jpg HTTP/1.1" 200 188091
 "GET /about.html HTTP/1.1" 200 5880
+"GET / HTTP/1.1" 200 4482
+"GET /admin/ HTTP/1.1" 200 7663
+"POST /admin/logout/ HTTP/1.1" 200 3576

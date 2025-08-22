@@ -36,7 +36,7 @@
      <a href="about.html">
       <button><span class="material-symbols-outlined"> info </span><span>About Us</span></button>
     </a>
-    <a href="/admin/">
+    <a href="http://localhost:8000/admin/" target="_blank">
       <button><span class="material-symbols-outlined"> admin_panel_settings </span><span>Admin</span></button>
     </a>
   </aside>
@@ -83,17 +83,14 @@
         <h2>Leave A Message</h2>
         <p class="form-intro">Whether you're a parent looking to enroll your child, a visitor seeking more information, feel free to reach out — we're here to help.</p>
         
-        <form class="contact-form" id="contactForm" novalidate>
+        <form class="contact-form" id="contactForm">
           <div class="form-row">
-            <input type="text" name="name" placeholder="Your name" minlength="2" required>
+            <input type="text" name="name" placeholder="Your name" required>
             <input type="email" name="email" placeholder="Your email" required>
           </div>
-          <textarea name="message" placeholder="Message Here (minimum 10 characters)" rows="6" minlength="10" required></textarea>
+          <textarea name="message" placeholder="Message Here" rows="6" required></textarea>
           <button type="submit" class="send-btn">Send Message</button>
         </form>
-        
-        <!-- Add a message display area -->
-        <div id="messageDisplay" style="margin-top: 20px;"></div>
       </div>
     </div>
   </main>
@@ -101,91 +98,59 @@
     <script src="main.js"></script>
     <script src="api.js"></script>
     
-    <!-- Add inline script to ensure form handling works -->
     <script>
-        // Ensure the contact form is properly handled
+        // Debug script to check if form is working
         document.addEventListener('DOMContentLoaded', function() {
-            const contactForm = document.getElementById('contactForm');
-            const messageDisplay = document.getElementById('messageDisplay');
+            console.log('Contact page loaded');
+            
+            const contactForm = document.querySelector('.contact-form');
+            console.log('Contact form found:', contactForm);
             
             if (contactForm) {
-                contactForm.addEventListener('submit', function(event) {
-                    event.preventDefault();
+                console.log('Form class:', contactForm.className);
+                console.log('Form ID:', contactForm.id);
+                
+                // Test form submission manually
+                contactForm.addEventListener('submit', function(e) {
+                    console.log('Form submitted manually!');
+                    e.preventDefault();
                     
-                    // Get form data
-                    const formData = new FormData(this);
-                    const name = formData.get('name').trim();
-                    const email = formData.get('email').trim();
-                    const message = formData.get('message').trim();
+                    const formData = new FormData(contactForm);
+                    const data = {
+                        name: formData.get('name'),
+                        email: formData.get('email'),
+                        message: formData.get('message')
+                    };
                     
-                    // Client-side validation
-                    if (name.length < 2) {
-                        showMessage('Name must be at least 2 characters long.', 'error');
-                        return;
-                    }
+                    console.log('Form data:', data);
                     
-                    if (message.length < 10) {
-                        showMessage('Message must be at least 10 characters long.', 'error');
-                        return;
-                    }
-                    
-                    // Show loading state
-                    const submitBtn = this.querySelector('button[type="submit"]');
-                    const originalText = submitBtn.textContent;
-                    submitBtn.textContent = 'Sending...';
-                    submitBtn.disabled = true;
-                    
-                    // Make API call
-                    fetch('/api/contact/', {
+                    // Test API call
+                    fetch('http://localhost:8000/api/contact/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({
-                            name: name,
-                            email: email,
-                            message: message
-                        })
+                        body: JSON.stringify(data)
                     })
                     .then(response => {
-                        if (!response.ok) {
-                            return response.json().then(errorData => {
-                                throw new Error(errorData.detail || errorData.message || 'Failed to send message');
-                            });
-                        }
+                        console.log('Response status:', response.status);
                         return response.json();
                     })
-                    .then(data => {
-                        showMessage('Message sent successfully! We will get back to you soon.', 'success');
-                        this.reset();
+                    .then(result => {
+                        console.log('Success:', result);
+                        alert('Message sent successfully!');
+                        contactForm.reset();
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        showMessage(`Error: ${error.message}`, 'error');
-                    })
-                    .finally(() => {
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
+                        alert('Error sending message: ' + error.message);
                     });
                 });
-            }
-            
-            function showMessage(message, type) {
-                messageDisplay.innerHTML = `<div class="message ${type}" style="
-                    padding: 15px 20px;
-                    border-radius: 5px;
-                    color: white;
-                    font-weight: bold;
-                    margin: 10px 0;
-                    background-color: ${type === 'success' ? '#28a745' : '#dc3545'};
-                ">${message}</div>`;
-                
-                // Clear message after 5 seconds
-                setTimeout(() => {
-                    messageDisplay.innerHTML = '';
-                }, 5000);
+            } else {
+                console.error('Contact form not found!');
             }
         });
     </script>
+
 </body>
 </html>
