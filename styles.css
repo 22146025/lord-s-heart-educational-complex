@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 body {
   margin: 0;
   background: #e5e6f7;
@@ -466,6 +471,35 @@ main {
     text-align: left;
 }
 
+@media screen and (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 0 15px;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+    }
+
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.25rem; }
+    p { font-size: 1rem; }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    h1 { font-size: 1.25rem; }
+    h2 { font-size: 1.125rem; }
+    p { font-size: 0.875rem; }
+}
+
 @media (max-width: 768px) {
   .contact-container {
     grid-template-columns: 1fr;
@@ -499,4 +533,3 @@ main {
         .content-section {
             flex: 1;
         }
-        
