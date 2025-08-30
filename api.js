@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE_URL = window.location.origin + '/api';
+const API_BASE_URL = 'https://syllas20.pythonanywhere.com/api';
 
 // Utility functions
 function showMessage(message, type = 'success') {

@@ -36,7 +36,7 @@
      <a href="about.html">
       <button><span class="material-symbols-outlined"> info </span><span>About Us</span></button>
     </a>
-    <a href="http://localhost:8000/admin/" target="_blank">
+    <a href="https://syllas20.pythonanywhere.com/admin/" target="_blank">
       <button><span class="material-symbols-outlined"> admin_panel_settings </span><span>Admin</span></button>
     </a>
   </aside>
@@ -99,58 +99,31 @@
     <script src="api.js"></script>
     
     <script>
-        // Debug script to check if form is working
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Contact page loaded');
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
             
-            const contactForm = document.querySelector('.contact-form');
-            console.log('Contact form found:', contactForm);
+            const formData = new FormData(contactForm);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                message: formData.get('message')
+            };
             
-            if (contactForm) {
-                console.log('Form class:', contactForm.className);
-                console.log('Form ID:', contactForm.id);
-                
-                // Test form submission manually
-                contactForm.addEventListener('submit', function(e) {
-                    console.log('Form submitted manually!');
-                    e.preventDefault();
-                    
-                    const formData = new FormData(contactForm);
-                    const data = {
-                        name: formData.get('name'),
-                        email: formData.get('email'),
-                        message: formData.get('message')
-                    };
-                    
-                    console.log('Form data:', data);
-                    
-                    // Test API call
-                    fetch('http://localhost:8000/api/contact/', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data)
-                    })
-                    .then(response => {
-                        console.log('Response status:', response.status);
-                        return response.json();
-                    })
-                    .then(result => {
-                        console.log('Success:', result);
-                        alert('Message sent successfully!');
-                        contactForm.reset();
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error sending message: ' + error.message);
-                    });
-                });
-            } else {
-                console.error('Contact form not found!');
+            try {
+                await submitContactForm(data);
+                alert('Message sent successfully!');
+                contactForm.reset();
+            } catch (error) {
+                alert('Error sending message. Please try again later.');
             }
         });
-    </script>
+    }
+});
+</script>
 
 </body>
 </html>

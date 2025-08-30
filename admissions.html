@@ -224,6 +224,27 @@
 
       <script src="main.js"></script>
     <script src="api.js"></script>
-
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const admissionForm = document.querySelector('form');
+    
+    if (admissionForm) {
+        admissionForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(admissionForm);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                await submitAdmissionForm(data);
+                alert('Application submitted successfully!');
+                admissionForm.reset();
+            } catch (error) {
+                alert('Error submitting application. Please try again later.');
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>
